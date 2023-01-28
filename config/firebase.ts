@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import { 
   getAuth, 
   GoogleAuthProvider, 
@@ -8,18 +8,27 @@ import {
  import { getAnalytics } from 'firebase/analytics';
 import App from '../pages/_app';
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyD1h0FSx9DR-eUo05yc3oRP1AI_u3KbyQE",
+//   authDomain: "the-beginning-of-a-hobby.firebaseapp.com",
+//   projectId: "the-beginning-of-a-hobby",
+//   storageBucket: "the-beginning-of-a-hobby.appspot.com",
+//   messagingSenderId: "320601432562",
+//   appId: "1:320601432562:web:020f374f076b1a75484b6b",
+//   measurementId: "G-BEWPXDY92V"
+// }
+
 const firebaseConfig = {
-  apiKey: "AIzaSyD1h0FSx9DR-eUo05yc3oRP1AI_u3KbyQE",
-  authDomain: "the-beginning-of-a-hobby.firebaseapp.com",
-  projectId: "the-beginning-of-a-hobby",
-  storageBucket: "the-beginning-of-a-hobby.appspot.com",
-  messagingSenderId: "320601432562",
-  appId: "1:320601432562:web:020f374f076b1a75484b6b",
-  measurementId: "G-BEWPXDY92V"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID
 }
 
 const firebaseApp = initializeApp(firebaseConfig);
-// const firebaseAnalytics = getAnalytics(firebaseApp);
 const firebaseAuth = getAuth(firebaseApp);
 firebaseAuth.languageCode = 'kr';
 
@@ -48,13 +57,15 @@ export const googleSignInWithPopup = <T>():Promise<T|null> => {
 // -------------------------------------- Apple credential -------------------------------------------------
 const AppleAuthProvider = new OAuthProvider('apple.com');
 AppleAuthProvider.setCustomParameters({
-  locale: 'kr'
+  locale: 'ko_KR'
 })
 
 export const appleSignInWithPopup = () => {
   return signInWithPopup(firebaseAuth, AppleAuthProvider)
   .then(result => {
+    // user info
     const user = result.user;
+    // apple credential
     const credential = OAuthProvider.credentialFromResult(result);
     const accessToken = credential?.accessToken;
     const idToken = credential?.idToken;
