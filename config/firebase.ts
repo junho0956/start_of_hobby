@@ -1,22 +1,10 @@
-import { initializeApp, getApps, getApp } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import { 
   getAuth, 
   GoogleAuthProvider, 
   signInWithPopup,
   OAuthProvider,
  } from 'firebase/auth';
- import { getAnalytics } from 'firebase/analytics';
-import App from '../pages/_app';
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyD1h0FSx9DR-eUo05yc3oRP1AI_u3KbyQE",
-//   authDomain: "the-beginning-of-a-hobby.firebaseapp.com",
-//   projectId: "the-beginning-of-a-hobby",
-//   storageBucket: "the-beginning-of-a-hobby.appspot.com",
-//   messagingSenderId: "320601432562",
-//   appId: "1:320601432562:web:020f374f076b1a75484b6b",
-//   measurementId: "G-BEWPXDY92V"
-// }
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,

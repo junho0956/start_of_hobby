@@ -4,3 +4,7 @@ type GoogleAccount = {
   email: string;
   uid: string;
 }
+
+type AppleAccount = {
+  
+}
